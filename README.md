@@ -1,4 +1,13 @@
 # smart-home
+- [smart-home](#smart-home)
+  - [Overall setup](#overall-setup)
+    - [Windows](#windows)
+    - [Raspberry Pi](#raspberry-pi)
+  - [Retrieve thermostat values](#retrieve-thermostat-values)
+    - [Setup](#setup)
+    - [Start polling values (CLI)](#start-polling-values-cli)
+    - [Start polling values (PM2)](#start-polling-values-pm2)
+- [Roadmap](#roadmap)
 
 ## Overall setup
 Download InfluxDB (1.8.3): https://portal.influxdata.com/downloads/
@@ -79,6 +88,9 @@ pm2 save
 
 
 
+# Roadmap
 
+- Model as AAS (Type 1) statically with TypeScript
+- Use Basyx's AAS Registry to register the RPI with an endpoint 
 
 
