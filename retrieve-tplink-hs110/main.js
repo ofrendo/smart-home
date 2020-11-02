@@ -9,14 +9,13 @@ const bucket = "my_database";
 
 console.log("Connecting to InfluxDB...");
 const influxWriteApi = new InfluxDB({url, token}).getWriteApi(org, bucket, 'ns');
+console.log("Connected to InfluxDB.");
 
-
+console.log("Init: Starting to poll with poll interval (seconds)=" + POLL_INTERVAL_SECONDS + "...");
 retrieveAndSaveValues();
-
 setInterval(function() {
-    console.log("INIT: Starting to poll...");
-    
-}, POLL_INTERVAL_SECONDS * 1000)
+    retrieveAndSaveValues();
+}, POLL_INTERVAL_SECONDS * 1000); 
 
 
 
