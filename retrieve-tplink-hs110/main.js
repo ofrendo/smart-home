@@ -35,22 +35,17 @@ function saveValues(realtimeValues) {
     // Which fields should be stored in the DB?
     // Example: {"voltage_mv":233596,"current_ma":582,"power_mw":84007,"total_wh":7109,"err_code":0,"current":0.582,"power":84.007,"total":7.109,"voltage":233.596}
     const valueNames = ["current", "voltage", "power", "total_wh"];
+    
+    const deviceName = "HS110 Plug under desk (router)";
+    const point = new Point(deviceName);
+        
     valueNames.forEach(valueName => {
-        saveValue(valueName, realtimeValues[valueName]);
+        const value = realtimeValues[valueName];
+        console.log("Saving value in InfluxDB: " + valueName + "=" + value);
+        point.floatField(valueName, value);
     });
+    influxWriteApi.writePoint(point);
     influxWriteApi.flush();
 }
 
-function saveValue(valueName, value) {
-    console.log("Saving value in InfluxDB: " + valueName + "=" + value);
-    const deviceName = "HS110 Plug under desk (router)";
-    
-    const point = new Point(valueName)
-        .tag("deviceName", deviceName)
-        .floatField("value", value);
-    influxWriteApi.writePoint(point);
-}
-
-
-    
  
