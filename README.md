@@ -7,6 +7,9 @@
     - [Setup](#setup)
     - [Start polling values (CLI)](#start-polling-values-cli)
     - [Start polling values (PM2)](#start-polling-values-pm2)
+  - [Retrieve power (HS110 smart plug)](#retrieve-power-hs110-smart-plug)
+    - [Start polling values (CLI)](#start-polling-values-cli-1)
+    - [Start polling values (PM2)](#start-polling-values-pm2-1)
 - [Roadmap](#roadmap)
 
 ## Overall setup
@@ -21,6 +24,13 @@ sudo influxd
 influx
 > create database my_database
 > create database test_database
+```
+
+Check if values exist: 
+```
+influx
+> use my_database
+> show measurements
 ```
 
 ### Raspberry Pi 
@@ -85,7 +95,27 @@ pm2 save
 ```
 
 
+## Retrieve power (HS110 smart plug)
 
+API documentation: https://plasticrake.github.io/tplink-smarthome-api/
+
+
+### Start polling values (CLI)
+Start the JavaScript process:
+
+```
+cd retrieve-tplink-hs110
+node main.js
+```
+
+### Start polling values (PM2)
+
+Start the process permanently (so that it starts even after reboot): 
+```
+cd retrieve-tplink-hs110
+pm2 start main.js --name "retrieve-tplink-hs110"
+pm2 save
+```
 
 
 # Roadmap
@@ -93,4 +123,5 @@ pm2 save
 - Model as AAS (Type 1) statically with TypeScript
 - Use Basyx's AAS Registry to register the RPI with an endpoint 
 
+- Other sensors: Laptop & PC usage
 
