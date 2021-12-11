@@ -23,6 +23,12 @@ sudo influxd
 
 influx
 > create database my_database
+<<<<<<< HEAD
+> SHOW DATABASES
+> use my_database
+
+> show series
+=======
 > create database test_database
 ```
 
@@ -118,6 +124,8 @@ pm2 save
 ```
 
 
+
+=======
 # Roadmap
 
 - Model as AAS (Type 1) statically with TypeScript
