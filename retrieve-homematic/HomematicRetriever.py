@@ -4,6 +4,9 @@ import requests
 import homematicip
 from homematicip.home import Home
 from homematicip.device import ShutterContactMagnetic, HeatingThermostat, WindowState, ValveState
+from util.Logger import logging
+
+
 
 config = homematicip.find_and_load_config_file()
 
@@ -23,6 +26,7 @@ def getInitialPayload(room: str, device):
     """
     all devices data structure: 
         label                   String
+        lastStatusUpdate        Datetime (NOTE: Returns time in local time zone!)
         lowBat                  Boolean
         unreach                 Boolean
         rssiDeviceValue         Integer
@@ -82,3 +86,10 @@ def retrieveAllDevices():
 
     return resultPayloads
 
+
+
+if __name__ == "__main__":
+    logging.info("Retrieving single payloads:")
+    payloads = retrieveAllDevices()
+    for payload in payloads: 
+        logging.info(payload)

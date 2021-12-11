@@ -1,0 +1,15 @@
+{
+  "name": "retrieve-tplink-hs110",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@influxdata/influxdb-client": "^1.8.0",
+    "tplink-smarthome-api": "^3.1.0"
+  }
+}
