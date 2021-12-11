@@ -9,6 +9,10 @@ sudo influxd run
 
 influx
 > create database my_database
+> SHOW DATABASES
+> use my_database
+
+> show series
 
 ```
 
@@ -21,6 +25,18 @@ Documentation: https://github.com/coreGreenberet/homematicip-rest-api
 ```
 pip3 install -U homematicip 
 python3 hmip_generate_auth_token.py
+```
+
+
+## Grafana
+
+- Running on ip-address:3000
+
+## Data retrieval
+
+```
+pm2 list
+
 ```
 
 
