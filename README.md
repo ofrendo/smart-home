@@ -23,7 +23,6 @@ sudo influxd
 
 influx
 > create database my_database
-<<<<<<< HEAD
 > SHOW DATABASES
 > use my_database
 
@@ -82,6 +81,10 @@ Documentation: https://github.com/coreGreenberet/homematicip-rest-api
 pip3 install -r retrieve-homematic/requirements.txt
 python3 retrieve-homematic/hmip_generate_auth_token.py
 ```
+
+- To find SGTIN: Open HomematicIP app -> More -> Device Overview -> Access Point -> Info (top right)
+- client/devicename: Leave blank
+- PIN: Leave blank
 
 ### Start polling values (CLI)
 
