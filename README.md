@@ -7,7 +7,7 @@
     - [Setup](#setup)
     - [Start polling values (CLI)](#start-polling-values-cli)
     - [Start polling values (PM2)](#start-polling-values-pm2)
-  - [Retrieve power (HS110 smart plug)](#retrieve-power-hs110-smart-plug)
+  - [Retrieve power (HS110 or KP115 smart plug)](#retrieve-power-hs110-or-kp115-smart-plug)
     - [Start polling values (CLI)](#start-polling-values-cli-1)
     - [Start polling values (PM2)](#start-polling-values-pm2-1)
 - [Roadmap](#roadmap)
@@ -104,7 +104,7 @@ pm2 save
 ```
 
 
-## Retrieve power (HS110 smart plug)
+## Retrieve power (HS110 or KP115 smart plug)
 
 API documentation: https://plasticrake.github.io/tplink-smarthome-api/
 
