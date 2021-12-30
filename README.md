@@ -10,7 +10,6 @@
   - [Retrieve power (HS110 or KP115 smart plug)](#retrieve-power-hs110-or-kp115-smart-plug)
     - [Start polling values (CLI)](#start-polling-values-cli-1)
     - [Start polling values (PM2)](#start-polling-values-pm2-1)
-- [Roadmap](#roadmap)
 
 ## Overall setup
 Download InfluxDB (1.8.3): https://portal.influxdata.com/downloads/
@@ -125,14 +124,3 @@ cd retrieve-tplink-hs110
 pm2 start main.js --name "retrieve-tplink-hs110"
 pm2 save
 ```
-
-
-
-=======
-# Roadmap
-
-- Model as AAS (Type 1) statically with TypeScript
-- Use Basyx's AAS Registry to register the RPI with an endpoint 
-
-- Other sensors: Laptop & PC usage
-
