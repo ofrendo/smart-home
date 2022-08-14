@@ -149,7 +149,7 @@ Start the Python process permanently (so that it starts even after reboot):
 ```
 cd retrieve-shelly
 poetry install
-pm2 start retrieve_shelly/main.py --interpreter .venv/bin/python
+pm2 start retrieve_shelly/main.py --interpreter .venv/bin/python --name retrieve-shelly
 pm2 save
 ```
 
