@@ -10,6 +10,11 @@
   - [Retrieve power (HS110 or KP115 smart plug)](#retrieve-power-hs110-or-kp115-smart-plug)
     - [Start polling values (CLI)](#start-polling-values-cli-1)
     - [Start polling values (PM2)](#start-polling-values-pm2-1)
+  - [Retrieve temperature (Shelly H&T)](#retrieve-temperature-shelly-ht)
+    - [Configuring the MQTT server on the Raspberry Pi](#configuring-the-mqtt-server-on-the-raspberry-pi)
+    - [Starting the Python MQTT subscriber (PM2)](#starting-the-python-mqtt-subscriber-pm2)
+    - [Configuring the Shelly sensor](#configuring-the-shelly-sensor)
+    - [Sample MQTT messages from Shelly](#sample-mqtt-messages-from-shelly)
 
 ## Overall setup
 Download InfluxDB (1.8.3): https://portal.influxdata.com/downloads/
@@ -124,3 +129,54 @@ cd retrieve-tplink-hs110
 pm2 start main.js --name "retrieve-tplink-hs110"
 pm2 save
 ```
+
+
+
+## Retrieve temperature (Shelly H&T)
+This step uses MQTT.
+
+### Configuring the MQTT server on the Raspberry Pi
+Guide: https://randomnerdtutorials.com/how-to-install-mosquitto-broker-on-raspberry-pi/
+
+```
+sudo apt install -y mosquitto mosquitto-clients
+sudo systemctl enable mosquitto.service
+```
+
+### Starting the Python MQTT subscriber (PM2)
+
+Start the Python process permanently (so that it starts even after reboot): 
+```
+cd retrieve-shelly
+poetry install
+pm2 start retrieve_shelly/main.py --interpreter .venv/bin/python
+pm2 save
+```
+
+
+### Configuring the Shelly sensor
+
+- Turn on the Shelly sensor: The LED should be on (not blinking)
+- Get the IP address of the sensor via the Shelly App
+- Connect to the sensor via browser
+- Click on "Internet & Security" -> "Advanced - Developer Settings"
+- Click on "Enable MQTT"
+- Enter IP address of Raspberry PI
+- Click "Save"
+
+
+### Sample MQTT messages from Shelly
+
+```
+shellies/shellyht-123456/online false
+shellies/shellyht-123456/online true
+shellies/announce {"id":"shellyht-123456","model":"SHHT-1","mac":"123456789","ip":"192.168.0.123","new_fw":false,"fw_ver":"20210710-130145/v1.11.0-g12a9327-master"}
+shellies/shellyht-123456/announce {"id":"shellyht-123456","model":"SHHT-1","mac":"123456789","ip":"192.168.0.123","new_fw":false,"fw_ver":"20210710-130145/v1.11.0-g12a9327-master"}
+shellies/shellyht-123456/sensor/temperature 29.62
+shellies/shellyht-123456/sensor/humidity 40.5
+shellies/shellyht-123456/sensor/battery 100
+shellies/shellyht-123456/sensor/ext_power false
+shellies/shellyht-123456/sensor/error 0
+```
+
+
