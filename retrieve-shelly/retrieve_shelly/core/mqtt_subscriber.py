@@ -2,7 +2,7 @@ from typing import List
 import paho.mqtt.client as mqtt
 import logging
 
-from retrieve_shelly.db_manager import DbManager, ShellySensorPayload
+from retrieve_shelly.core.db_manager import DbManager, ShellySensorPayload
 
 logger = logging.getLogger(__name__)
 

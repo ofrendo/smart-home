@@ -1,0 +1,6 @@
+{
+    "plugs": [{
+        "ip_address": "192.168.0.0",
+        "name": "shellyplug-s-123456"
+    }]
+}

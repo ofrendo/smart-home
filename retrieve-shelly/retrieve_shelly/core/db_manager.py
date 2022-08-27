@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 
 class ShellySensorPayload(BaseModel):
     sensor_id: str  # shellyht-123
-    measurement_name: str  # temperature, battery, humidity
+    measurement_name: str  # temperature, battery, humidity, power
     measurement_value: float
 
 
