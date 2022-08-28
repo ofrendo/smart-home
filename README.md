@@ -17,6 +17,7 @@
     - [Configuring the MQTT server on the Raspberry Pi](#configuring-the-mqtt-server-on-the-raspberry-pi)
     - [Starting the Python MQTT subscriber (PM2)](#starting-the-python-mqtt-subscriber-pm2)
     - [Configuring the Shelly sensor](#configuring-the-shelly-sensor)
+    - [Sending a test MQTT message](#sending-a-test-mqtt-message)
     - [Sample MQTT messages from Shelly](#sample-mqtt-messages-from-shelly)
 
 ## Overall setup
@@ -184,6 +185,11 @@ pm2 save
 - Enter IP address of Raspberry PI
 - Click "Save"
 
+
+### Sending a test MQTT message
+```
+mosquitto_pub -t "shellies/shellyht-70/sensor/temperature" -m 50 -h localhost -p 1883
+```
 
 ### Sample MQTT messages from Shelly
 
