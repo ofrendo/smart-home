@@ -37,22 +37,19 @@ class ShellyPlugHttpRetriever:
         url: str = f"http://{plug.ip_address}/status"
         logger.info(f"Requesting power from Shelly Plug S with url='{url}'...")
 
-        try:
-            response_raw = requests.get(url)
-            response: Dict = response_raw.json()
-            power_w: float = response["meters"][0]["power"]
-            # "total" refers to watt-minutes: https://shelly-api-docs.shelly.cloud/gen1/#shelly1-1pm-status
-            # Note that this resets every time the plug reboots
-            energy_watt_minutes: float = response["meters"][0]["total"]
-            energy_watt_hours: float = energy_watt_minutes / 60
-            payload = ShellySensorPayload(sensor_id=plug.name, measurements=[
-                ShellySensorMeasurement(measurement_name="power", measurement_value=power_w),
-                ShellySensorMeasurement(measurement_name="energy_wh", measurement_value=energy_watt_hours),
-            ])
-            logger.info(f"Found payload={payload}")
-            return payload
-        except Exception as exception:
-            logger.error("Error caught while trying to read power value", exc_info=exception)
+        response_raw = requests.get(url)
+        response: Dict = response_raw.json()
+        power_w: float = response["meters"][0]["power"]
+        # "total" refers to watt-minutes: https://shelly-api-docs.shelly.cloud/gen1/#shelly1-1pm-status
+        # Note that this resets every time the plug reboots
+        energy_watt_minutes: float = response["meters"][0]["total"]
+        energy_watt_hours: float = energy_watt_minutes / 60
+        payload = ShellySensorPayload(sensor_id=plug.name, measurements=[
+            ShellySensorMeasurement(measurement_name="power", measurement_value=power_w),
+            ShellySensorMeasurement(measurement_name="energy_wh", measurement_value=energy_watt_hours),
+        ])
+        logger.info(f"Found payload={payload}")
+        return payload
 
 
 class ShellyPlugRetriever:
@@ -101,8 +98,11 @@ class ShellyPlugRetriever:
 
     def _poll_with_http(self):
         for plug in self.shelly_plug_config.plugs:
-            measurement: ShellySensorPayload = self.shelly_plug_http_retriever.retrieve_sensor_payload(plug=plug)
-            self.db_manager.save_shelly_to_influxdb(measurement)
+            try:
+                measurement: ShellySensorPayload = self.shelly_plug_http_retriever.retrieve_sensor_payload(plug=plug)
+                self.db_manager.save_shelly_to_influxdb(measurement)
+            except Exception as exception: 
+                logger.error(f"Error caught while trying to read power value for plug={plug}", exc_info=exception)
 
     def start_retrieval(self):
         """
