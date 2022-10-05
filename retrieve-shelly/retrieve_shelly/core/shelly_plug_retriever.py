@@ -37,9 +37,9 @@ class ShellyPlugHttpRetriever:
         url: str = f"http://{plug.ip_address}/status"
         logger.info(f"Requesting power from Shelly Plug S with url='{url}'...")
 
-        response_raw = requests.get(url)
-        response: Dict = response_raw.json()
         try:
+            response_raw = requests.get(url)
+            response: Dict = response_raw.json()
             power_w: float = response["meters"][0]["power"]
             # "total" refers to watt-minutes: https://shelly-api-docs.shelly.cloud/gen1/#shelly1-1pm-status
             # Note that this resets every time the plug reboots
