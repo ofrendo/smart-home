@@ -2,7 +2,7 @@
 homematicip-rest-api-test/
 
 # Python
-__pycache__
+**__pycache__
 
 # Config file containing auth token for Homematic REST API
 retrieve-homematic/config.ini

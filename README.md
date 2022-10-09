@@ -79,28 +79,40 @@ sudo npm install pm2 -g
 pm2 startup
 ```
 
+
+Download and compile Python3.8, depending on RPI version: https://maker-tutorials.com/python3-pip-raspberry-pi-installieren/
+
+
+
 ## Retrieve thermostat values
 
 ### Setup
 
-Documentation: https://github.com/coreGreenberet/homematicip-rest-api
+Documentation: https://github.com/hahn-th/homematicip-rest-api
 
-```
-pip3 install -r retrieve-homematic/requirements.txt
-python3 retrieve-homematic/hmip_generate_auth_token.py
-```
-
+Run the following code to generate `retrieve-homematic/config.ini` containing credentials.
 - To find SGTIN: Open HomematicIP app -> More -> Device Overview -> Access Point -> Info (top right)
 - client/devicename: Leave blank
 - PIN: Leave blank
 
+```
+cd retrieve-homematic
+poetry install
+poetry run python3 retrieve_homematic/hmip_generate_auth_token.py
+```
+
+Debugging:
+```
+poetry run python3 retrieve_homematic/hmip_cli.py --help
+```
+
 ### Start polling values (CLI)
 
-Start the Python process: 
 
+Start the Python process: 
 ``` 
 cd retrieve-homematic
-python3 main.py
+poetry run python3 retrieve_homematic/main.py
 ``` 
 
 ### Start polling values (PM2)
