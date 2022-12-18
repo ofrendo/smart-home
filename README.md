@@ -119,7 +119,7 @@ poetry run python3 retrieve_homematic/main.py
 Start the Python process permanently (so that it starts even after reboot): 
 ```
 cd retrieve-homematic
-pm2 start main.py --interpreter python3
+pm2 start retrieve_homematic/main.py --interpreter .venv/bin/python --name retrieve-homematic
 pm2 save
 ```
 
