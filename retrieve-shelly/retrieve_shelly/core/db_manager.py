@@ -8,13 +8,9 @@ logger = logging.getLogger(__name__)
 
 
 class ShellySensorMeasurement(BaseModel):
+    sensor_id: str  # shellyht-123
     measurement_name: str  # temperature, battery, humidity, power, energy_wh
     measurement_value: float
-
-
-class ShellySensorPayload(BaseModel):
-    sensor_id: str  # shellyht-123
-    measurements: List[ShellySensorMeasurement]
 
 
 class DbManager:
@@ -23,11 +19,10 @@ class DbManager:
         self.client = InfluxDBClient(url="http://localhost:8086", token="my-token", org="my-org")
         self.write_api = self.client.write_api(write_options=SYNCHRONOUS)
 
-    def save_shelly_to_influxdb(self, payload: ShellySensorPayload):
-        logger.info(f"Saving payload in DB: {payload}")
-        db_payload: Point = Point(payload.sensor_id)
-        for measurement in payload.measurements:
-            db_payload.field(measurement.measurement_name, measurement.measurement_value)
+    def save_shelly_to_influxdb(self, measurement: ShellySensorMeasurement):
+        logger.info(f"Saving payload in DB: {measurement}")
+        db_payload: Point = Point(measurement.sensor_id)
+        db_payload.field(measurement.measurement_name, measurement.measurement_value)
 
         self.write_api.write(bucket=self.bucket, record=db_payload)
         logger.info("Saved payload in DB.")

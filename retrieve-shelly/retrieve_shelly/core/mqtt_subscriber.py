@@ -2,7 +2,7 @@ from typing import List
 import paho.mqtt.client as mqtt
 import logging
 
-from retrieve_shelly.core.db_manager import DbManager, ShellySensorPayload
+from retrieve_shelly.core.db_manager import DbManager, ShellySensorMeasurement
 
 logger = logging.getLogger(__name__)
 
@@ -47,11 +47,11 @@ class ShellyMqttSubscriber:
             if measurement_name not in measurement_names_to_process:
                 return
             
-            payload = ShellySensorPayload(
+            measurement = ShellySensorMeasurement(
                 sensor_id=topic_parts[1],
                 measurement_name=topic_parts[3],
                 measurement_value=float(msg.payload)
             )
-            self.db_manager.save_shelly_to_influxdb(payload=payload)
+            self.db_manager.save_shelly_to_influxdb(measurement=measurement)
         except Exception as exception:
-            logger.error(f"Error while processing MQTT message: {exception}")
+            logger.error(f"Error while processing MQTT message: {exception}", exc_info=exception)
