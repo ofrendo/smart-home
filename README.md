@@ -12,8 +12,9 @@
     - [Start polling values (PM2)](#start-polling-values-pm2-1)
   - [Retrieve power (Shelly Plug S)](#retrieve-power-shelly-plug-s)
     - [Configuring the Shelly Plug S](#configuring-the-shelly-plug-s)
+    - [Starting the Python Shelly Plug S retriever (for debugging)](#starting-the-python-shelly-plug-s-retriever-for-debugging)
     - [Starting the Python Shelly Plug S retriever (PM2)](#starting-the-python-shelly-plug-s-retriever-pm2)
-  - [Retrieve temperature (Shelly H&T)](#retrieve-temperature-shelly-ht)
+  - [Retrieve temperature (Shelly H\&T)](#retrieve-temperature-shelly-ht)
     - [Configuring the MQTT server on the Raspberry Pi](#configuring-the-mqtt-server-on-the-raspberry-pi)
     - [Starting the Python MQTT subscriber (PM2)](#starting-the-python-mqtt-subscriber-pm2)
     - [Configuring the Shelly sensor](#configuring-the-shelly-sensor)
@@ -153,6 +154,15 @@ is a useful feature because a weekly schedule can be set via cloud connection (S
 
 ### Configuring the Shelly Plug S
 - Settings --> Power on default mode --> "ON"
+
+
+### Starting the Python Shelly Plug S retriever (for debugging)
+```
+cd retrieve-shelly
+poetry install
+poetry run python3 retrieve_shelly/main_shelly_plug_retriever.py
+```
+
 
 ### Starting the Python Shelly Plug S retriever (PM2)
 
